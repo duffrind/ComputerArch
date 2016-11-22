@@ -1,0 +1,74 @@
+/**
+ * Creates an EnemyBullet. This has x and y coordinate location,
+ * and speed. There are methods for drawing, erasing, update movement,
+ * and returning the speed and coordinates.
+ */
+
+class EnemyBullet {
+
+    // Location and speed on the screen
+    field int x, y, speed;
+
+    // The size of the EnemyBullet
+    field int size;
+
+    /** Constructs a new EnemyBullet with a given location and size. */
+    constructor EnemyBullet new(int Ax, int Ay, int Aspeed) {
+        let x = Ax;
+        let y = Ay;
+        let size = 1;
+        let speed = Aspeed;
+
+        do draw();
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the EnemyBullet on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Erases the EnemyBullet from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Updates the bullet. Moves right (speed) spaces. */
+    method void update() {
+        if (x < 508) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
+            let x = x + speed;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + 1, y + size);
+        }
+
+        return;
+    }
+
+    /** Returns the current x coordinate of the EnemyBullet */
+    method int getX() {
+        return x;
+    }
+
+    /** Returns the current y coordinate of the EnemyBullet */
+    method int getY() {
+        return y;
+    }
+
+    /** Returns the current speed of the EnemyBullet */
+    method int getSpeed() {
+        return speed;
+    }
+}

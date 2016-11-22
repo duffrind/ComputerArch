@@ -1,0 +1,102 @@
+/**
+ * Implements an Enemy. The Enemy moves up and down on the screen and
+ * shoots incessantly. When shot, the Enemy decreases in size but
+ * doubles its speed.
+ */
+ 
+class Enemy {
+
+    // Location and speed on the screen
+    field int x, y, speed;
+
+    // Boolean of if the Enemy will move up or down
+    field bool directionUp;
+
+    // The size of the Enemy
+    field int size;
+
+    /** Constructs a new Enemy with a given location and size. */
+    constructor Enemy new() {
+        let x = 10;
+        let y = 10;
+        let size = 25;
+        let directionUp = false;
+        let speed = 1;
+
+        do draw();
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the Enemy on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Erases the Enemy from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Updates the Enemy. Moves (speed) spaces in (directionUp's) direction. */
+    method void update() {
+        if (y < (2 + speed)) {
+            let directionUp = false;
+        }
+        if (y > (253 - (size + speed))) {
+            let directionUp = true;
+        }
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        if (directionUp = true) {
+            let y = y - speed;
+        }
+        if (directionUp = false) {
+            let y = y + speed;
+        }
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Decrements the size by 6 pixels and doubles the speed. */
+    method void decSize() {
+        if (size > 6) {
+            do erase();
+            let size = size - 6;
+            do draw();
+            let speed = speed * 2;
+        }
+        return;
+	}
+
+	/** Returns the x coordinate of the upper left pixel of the Enemy. */
+    method int getX() {
+        return x;
+    }
+
+    /** Returns the y coordinate of the upper left pixel of the Enemy. */
+    method int getY() {
+        return y;
+    }
+
+    /** Returns the size of the Enemy. */
+    method int getSize() {
+        return size;
+    }
+
+    /** Returns the speed of the Enemy. */
+    method int getSpeed() {
+        return speed;
+    }
+}

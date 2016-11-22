@@ -1,0 +1,68 @@
+/**
+ * Creates an EnemyBullet. This has x and y coordinate location.
+ * There are methods for drawing, erasing, update movement,
+ * and returning the coordinates.
+ */
+
+class Bullet {
+
+    // Location on the screen
+    field int x, y;
+
+    // The size of the bullet
+    field int size;
+
+    /** Constructs a new bullet with a given location and size. */
+    constructor Bullet new(int Ay) {
+        let x = 478;
+        let y = Ay;
+        let size = 1;
+
+        do draw();
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the bullet on the screen. */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Erases the bullet from the screen. */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    /** Updates the bullet. Moves left 4 spaces. */
+    method void update() {
+        if (x > 1) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
+            let x = x - 4;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + 1, y + size);
+        }
+
+        return;
+    }
+
+    /** Returns the current x coordinate of the bullet */
+    method int getX() {
+        return x;
+    }
+
+    /** Returns the current x coordinate of the bullet */
+    method int getY() {
+        return y;
+    }
+}

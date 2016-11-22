@@ -1,0 +1,197 @@
+/**
+ * SpaceWars game.
+ * Your player can only move up (arrow up), down (arrow down),
+ * shoot (arrow left), or give up (q).
+ * Dodge the Enemy's bullets while shooting the Enemy to weaken it (decreases in size)
+ * until it dies (you win). If shot, you lose. The Enemy can shoot multiple
+ * bullets at a time, however the Player can only shoot one at a time.
+ */
+class SpaceWars {
+
+    // Variables are self defining
+    field Player player;
+
+    field Bullet bullet;
+
+    field Enemy enemy;
+
+    field EnemyBullet enemyBullet;
+
+    field bool bulletAlive, enemyBulletAlive, exit;
+
+    field Array enemyBulletArray;
+
+    field int direction, count, bulletCount, bulletDelay;
+
+    /** Constructs a new Game. */
+    constructor SpaceWars new(int difficulty) {
+        let enemy = Enemy.new();
+        let player = Player.new(480, 125, 10);
+        if (difficulty = 49) {
+            do player.decSize();
+        }
+        if (difficulty = 51) {
+            do player.incSize();
+        }
+
+        let direction = 0;
+        let bulletDelay = 19;
+        let bulletAlive = false;
+        let enemyBulletAlive = false;
+        let exit = false;
+        let count = 0;
+        let bulletCount = 0;
+        let enemyBulletArray = Array.new(15);
+
+        let enemyBulletArray[0] = 0;
+        let enemyBulletArray[1] = 0;
+        let enemyBulletArray[2] = 0;
+        let enemyBulletArray[3] = 0;
+        let enemyBulletArray[4] = 0;
+        let enemyBulletArray[5] = 0;
+        let enemyBulletArray[6] = 0;
+        let enemyBulletArray[7] = 0;
+        let enemyBulletArray[7] = 0;
+        let enemyBulletArray[8] = 0;
+        let enemyBulletArray[9] = 0;
+        let enemyBulletArray[10] = 0;
+        let enemyBulletArray[11] = 0;
+        let enemyBulletArray[12] = 0;
+        let enemyBulletArray[13] = 0;
+        let enemyBulletArray[14] = 0;
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do player.dispose();
+        do enemyBulletArray.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Constantly pull the keyboard memory for updates. */
+    method void run() {
+        var char key;
+
+        while (~exit) {
+
+            let direction = 0;
+            let key = Keyboard.keyPressed();
+
+            if (key = 81) { // q for quit
+                let exit = true;
+            }
+            if (key = 131) { // up arrow for up
+                let direction = 1;
+            }
+            if (key = 133) { // down arrow for up
+                let direction = 2;
+            }
+            if (key = 130) { // left arrow for shoot
+                let direction = 3;
+            }
+
+            do update();
+        }
+            
+        return;
+	}
+
+    /** Moves the player while updating all bullets and enemy. */
+    method void update() {
+        var int i;
+        // first, move the player or shoot
+        if (direction = 1) {
+            do player.moveUp();
+        }
+        if (direction = 2) {
+            do player.moveDown();
+        }
+        if (direction = 3) {
+            if (bulletAlive = false) {
+                let bullet = Bullet.new((player.getY() + (player.getSize() / 2)));
+                let bulletAlive = true;
+            }
+        }
+        // update the enemy
+        do enemy.update();
+        // if the player's bullet is alive, update the bullet and then check for collisions with the enemy
+        if (bulletAlive = true) {
+            do bullet.update();
+            if (bullet.getX() < 5) {
+                do bullet.erase();
+                do bullet.dispose();
+                let bulletAlive = false;
+            }
+            if (bullet.getX() < (enemy.getX() + (enemy.getSize() + 1))) {
+                if (bullet.getX() > enemy.getX()) {
+                    if (bullet.getY() > (enemy.getY() - 1)) {
+                        if (bullet.getY() < (enemy.getY() + (enemy.getSize() + 1))) {
+                            // the enemy starts at size 25 with speed 1, and then for each shot becomes
+                            // size 19, speed 2
+                            // size 13, speed 4
+                            // size 7, speed 8
+                            // dead
+                            if (enemy.getSize() > 6) {
+                                do enemy.decSize();
+                                let bulletDelay = bulletDelay - 1;
+                            }
+                            if (enemy.getSize() < 7) {
+                                do enemy.dispose();
+                                do enemyBullet.dispose();
+                                do Screen.clearScreen();
+                                do Output.printString("You won!");
+                                let exit = true;
+                            }
+                            let bulletAlive = false;
+                            do bullet.erase();
+                            do bullet.dispose();
+                        }
+                    }
+                }
+            }
+        }
+        // have the enemy shoot another bullet every 20 iterations
+        let count = count + 1;
+        if ((count > bulletDelay)  & (exit = false)) {
+            let enemyBulletArray[bulletCount] = EnemyBullet.new(((enemy.getX() + enemy.getSize()) + 1), (enemy.getY() + (enemy.getSize() / 2)), (enemy.getSpeed() * 2));
+            let bulletCount = bulletCount + 1;
+            if (bulletCount > 11) {
+                let bulletCount = 0;
+            }
+            let count = 0;
+        }
+        // loop through all of the enemy's bullets and update them (move and check for collision)
+        let i = 0;
+        while ((i < 15) & (exit = false)) {
+            if (~(enemyBulletArray[i] = 0)) {
+                let enemyBullet = enemyBulletArray[i];
+                do enemyBullet.update();
+                if (enemyBullet.getX() > (player.getX() - enemyBullet.getSpeed())) {
+                    if (enemyBullet.getX() < (player.getX() + player.getSize())) {
+                        if (enemyBullet.getY() > player.getY()) {
+                            if (enemyBullet.getY() < (player.getY() + player.getSize())) {
+                                let exit = true;
+                                let enemyBulletArray[i] = 0;
+                                do enemyBullet.dispose();
+                                do enemyBulletArray.dispose();
+                                do Screen.clearScreen();
+                                do Output.printString("You Lost!");
+                            }
+                        }
+                    }
+                }
+                if ((exit = false) & (enemyBullet.getX() > 490)) {
+                    do enemyBullet.erase();
+                    do enemyBullet.dispose();
+                    let enemyBulletArray[i] = 0;
+                }
+            }
+            let i = i + 1;
+        }
+        do Sys.wait(25); // Delays the next movement.
+        return;
+    }
+}

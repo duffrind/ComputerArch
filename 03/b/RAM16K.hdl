@@ -1,0 +1,25 @@
+// File name: projects/03/b/RAM16K.hdl
+
+/**
+ * Memory of 16K registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM16K {
+    IN in[16], load, address[14];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load,sel=address[0..2],a=a,b=b,c=c,d=d,e=e,f=f,g=g,h=h);
+    RAM4K(in=in,load=a,address[0..10]=address[3..13],address[11]=false,out=o0);
+    RAM4K(in=in,load=b,address[0..10]=address[3..13],address[11]=false,out=o1);
+    RAM4K(in=in,load=c,address[0..10]=address[3..13],address[11]=false,out=o2);
+    RAM4K(in=in,load=d,address[0..10]=address[3..13],address[11]=false,out=o3);
+    RAM4K(in=in,load=e,address[0..10]=address[3..13],address[11]=false,out=o4);
+    RAM4K(in=in,load=f,address[0..10]=address[3..13],address[11]=false,out=o5);
+    RAM4K(in=in,load=g,address[0..10]=address[3..13],address[11]=false,out=o6);
+    RAM4K(in=in,load=h,address[0..10]=address[3..13],address[11]=false,out=o7);
+    Mux8Way16(a=o0,b=o1,c=o2,d=o3,e=o4,f=o5,g=o6,h=o7,sel=address[0..2],out=out);
+}

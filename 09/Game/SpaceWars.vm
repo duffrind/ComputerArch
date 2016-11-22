@@ -1,0 +1,615 @@
+function SpaceWars.new 0
+push constant 11
+call Memory.alloc 1
+pop pointer 0
+call Enemy.new 0
+pop this 2
+push constant 480
+push constant 125
+push constant 10
+call Player.new 3
+pop this 0
+push argument 0
+push constant 49
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call Player.decSize 1
+pop temp 0
+label IF_FALSE0
+push argument 0
+push constant 51
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Player.incSize 1
+pop temp 0
+label IF_FALSE1
+push constant 0
+pop this 8
+push constant 0
+pop this 4
+push constant 0
+pop this 5
+push constant 0
+pop this 6
+push constant 0
+pop this 9
+push constant 0
+pop this 10
+push constant 12
+call Array.new 1
+pop this 7
+push constant 0
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 6
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 8
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 9
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 10
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 11
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+return
+function SpaceWars.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Player.dispose 1
+pop temp 0
+push this 7
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function SpaceWars.run 1
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push this 6
+not
+not
+if-goto WHILE_END0
+push constant 0
+pop this 8
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop this 6
+label IF_FALSE0
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop this 8
+label IF_FALSE1
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 2
+pop this 8
+label IF_FALSE2
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 3
+pop this 8
+label IF_FALSE3
+push pointer 0
+call SpaceWars.update 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function SpaceWars.update 1
+push argument 0
+pop pointer 0
+push this 8
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call Player.moveUp 1
+pop temp 0
+label IF_FALSE0
+push this 8
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Player.moveDown 1
+pop temp 0
+label IF_FALSE1
+push this 8
+push constant 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 4
+push constant 0
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+call Player.getY 1
+push this 0
+call Player.getSize 1
+push constant 2
+call Math.divide 2
+add
+call Bullet.new 1
+pop this 1
+push constant 0
+not
+pop this 4
+label IF_FALSE3
+label IF_FALSE2
+push this 2
+call Enemy.update 1
+pop temp 0
+push this 4
+push constant 0
+not
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 1
+call Bullet.update 1
+pop temp 0
+push this 1
+call Bullet.getX 1
+push constant 5
+lt
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 1
+call Bullet.erase 1
+pop temp 0
+push this 1
+call Bullet.dispose 1
+pop temp 0
+push constant 0
+pop this 4
+label IF_FALSE5
+push this 1
+call Bullet.getX 1
+push this 2
+call Enemy.getX 1
+push this 2
+call Enemy.getSize 1
+push constant 1
+add
+add
+lt
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 1
+call Bullet.getX 1
+push this 2
+call Enemy.getX 1
+gt
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 1
+call Bullet.getY 1
+push this 2
+call Enemy.getY 1
+push constant 1
+sub
+gt
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 1
+call Bullet.getY 1
+push this 2
+call Enemy.getY 1
+push this 2
+call Enemy.getSize 1
+push constant 1
+add
+add
+lt
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push this 2
+call Enemy.getSize 1
+push constant 6
+gt
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push this 2
+call Enemy.decSize 1
+pop temp 0
+label IF_FALSE10
+push this 2
+call Enemy.getSize 1
+push constant 7
+lt
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push this 2
+call Enemy.dispose 1
+pop temp 0
+push this 3
+call EnemyBullet.dispose 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 8
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 119
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+not
+pop this 6
+label IF_FALSE11
+push constant 0
+pop this 4
+push this 1
+call Bullet.erase 1
+pop temp 0
+push this 1
+call Bullet.dispose 1
+pop temp 0
+label IF_FALSE9
+label IF_FALSE8
+label IF_FALSE7
+label IF_FALSE6
+label IF_FALSE4
+push this 9
+push constant 1
+add
+pop this 9
+push this 9
+push constant 19
+gt
+push this 6
+push constant 0
+eq
+and
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push this 10
+push this 7
+add
+push this 2
+call Enemy.getX 1
+push this 2
+call Enemy.getSize 1
+add
+push constant 1
+add
+push this 2
+call Enemy.getY 1
+push this 2
+call Enemy.getSize 1
+push constant 2
+call Math.divide 2
+add
+push this 2
+call Enemy.getSpeed 1
+push constant 2
+call Math.multiply 2
+call EnemyBullet.new 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 10
+push constant 1
+add
+pop this 10
+push this 10
+push constant 11
+gt
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push constant 0
+pop this 10
+label IF_FALSE13
+push constant 0
+pop this 9
+label IF_FALSE12
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 12
+lt
+push this 6
+push constant 0
+eq
+and
+not
+if-goto WHILE_END0
+push local 0
+push this 7
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push local 0
+push this 7
+add
+pop pointer 1
+push that 0
+pop this 3
+push this 3
+call EnemyBullet.update 1
+pop temp 0
+push this 3
+call EnemyBullet.getX 1
+push constant 500
+gt
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+push this 3
+call EnemyBullet.erase 1
+pop temp 0
+push this 3
+call EnemyBullet.dispose 1
+pop temp 0
+push local 0
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE15
+push this 3
+call EnemyBullet.getX 1
+push this 0
+call Player.getX 1
+push this 3
+call EnemyBullet.getSpeed 1
+sub
+gt
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push this 3
+call EnemyBullet.getX 1
+push this 0
+call Player.getX 1
+push this 0
+call Player.getSize 1
+add
+lt
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push this 3
+call EnemyBullet.getY 1
+push this 0
+call Player.getY 1
+gt
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push this 3
+call EnemyBullet.getY 1
+push this 0
+call Player.getY 1
+push this 0
+call Player.getSize 1
+add
+lt
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push constant 0
+not
+pop this 6
+push local 0
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 3
+call EnemyBullet.dispose 1
+pop temp 0
+push this 7
+call Array.dispose 1
+pop temp 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 9
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 76
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+label IF_FALSE19
+label IF_FALSE18
+label IF_FALSE17
+label IF_FALSE16
+label IF_FALSE14
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 25
+call Sys.wait 1
+pop temp 0
+push constant 0
+return

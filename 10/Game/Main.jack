@@ -1,0 +1,32 @@
+/**
+ * The Main class initializes and starts a new SpaceWars game.
+ */
+class Main {
+
+    /** Initializes a new game and starts it. */    
+    function void main() {
+        var SpaceWars game;
+        var int difficulty;
+        let difficulty = 0;
+
+        do Output.printString("Welcome to SpaceWars!");
+        do Output.println();
+        do Output.printString("The controls are up and down arrow to move");
+        do Output.println();
+        do Output.printString("and left arrow to shoot");
+        do Output.println();
+        do Output.println();
+        do Output.printString("Please select your difficulty!");
+        do Output.println();
+        do Output.printString("1: Easy, 2: Medium, 3: Hard");
+        while ((difficulty < 49) | (difficulty > 51)) {
+            let difficulty = Keyboard.keyPressed();
+        }
+        do Screen.clearScreen();
+        let game = SpaceWars.new(difficulty);
+        do game.run();
+        do game.dispose();
+
+        return;
+    }
+}

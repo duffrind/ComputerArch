@@ -1,0 +1,11 @@
+// File name: projects/05/Computer.hdl
+
+CHIP Computer {
+
+    IN reset;
+
+    PARTS:
+    Memory(in=memIn, load=memLoad, address=memAdd, out=o1);
+    ROM32K(address=next, out=o2);
+    CPU(inM=o1, instruction=o2, reset=reset, outM=memIn, writeM=memLoad, addressM=memAdd, pc=next);
+}

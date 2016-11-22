@@ -1,0 +1,195 @@
+function Enemy.new 0
+push constant 87
+call Memory.alloc 1
+pop pointer 0
+push constant 10
+pop this 0
+push constant 10
+pop this 1
+push constant 25
+pop this 4
+push constant 0
+pop this 3
+push constant 1
+pop this 2
+push pointer 0
+call Enemy.draw 1
+pop temp 0
+push pointer 0
+return
+function Enemy.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Enemy.draw 0
+push argument 0
+pop pointer 0
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 4
+add
+push this 1
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Enemy.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 4
+add
+push this 1
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Enemy.update 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 2
+push this 2
+add
+lt
+not
+if-goto EnemyIFLABEL0
+push constant 0
+pop this 3
+goto EnemyIFLABEL1
+label EnemyIFLABEL0
+label EnemyIFLABEL1
+push this 1
+push constant 253
+push this 4
+push this 2
+add
+sub
+gt
+not
+if-goto EnemyIFLABEL3
+push constant 1
+neg
+pop this 3
+goto EnemyIFLABEL4
+label EnemyIFLABEL3
+label EnemyIFLABEL4
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 4
+add
+push this 1
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push this 3
+push constant 1
+neg
+eq
+not
+if-goto EnemyIFLABEL6
+push this 1
+push this 2
+sub
+pop this 1
+goto EnemyIFLABEL7
+label EnemyIFLABEL6
+label EnemyIFLABEL7
+push this 3
+push constant 0
+eq
+not
+if-goto EnemyIFLABEL9
+push this 1
+push this 2
+add
+pop this 1
+goto EnemyIFLABEL10
+label EnemyIFLABEL9
+label EnemyIFLABEL10
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push this 4
+add
+push this 1
+push this 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Enemy.decSize 0
+push argument 0
+pop pointer 0
+push this 4
+push constant 6
+gt
+not
+if-goto EnemyIFLABEL12
+push pointer 0
+call Enemy.erase 1
+pop temp 0
+push this 4
+push constant 6
+sub
+pop this 4
+push pointer 0
+call Enemy.draw 1
+pop temp 0
+push this 2
+push constant 2
+call Math.multiply 2
+pop this 2
+goto EnemyIFLABEL13
+label EnemyIFLABEL12
+label EnemyIFLABEL13
+push constant 0
+return
+function Enemy.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Enemy.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Enemy.getSize 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Enemy.getSpeed 0
+push argument 0
+pop pointer 0
+push this 2
+return

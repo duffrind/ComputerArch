@@ -1,0 +1,435 @@
+function Ball.new 0
+push constant 52
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push argument 2
+pop this 10
+push argument 3
+push constant 6
+sub
+pop this 11
+push argument 4
+pop this 12
+push argument 5
+push constant 6
+sub
+pop this 13
+push constant 0
+pop this 14
+push pointer 0
+call Ball.show 1
+pop temp 0
+push pointer 0
+return
+function Ball.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Ball.show 0
+push argument 0
+pop pointer 0
+push constant 1
+neg
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Ball.draw 1
+pop temp 0
+push constant 0
+return
+function Ball.hide 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push pointer 0
+call Ball.draw 1
+pop temp 0
+push constant 0
+return
+function Ball.draw 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+push this 0
+push constant 5
+add
+push this 1
+push constant 5
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Ball.getLeft 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Ball.getRight 0
+push argument 0
+pop pointer 0
+push this 0
+push constant 5
+add
+return
+function Ball.setDestination 3
+push argument 0
+pop pointer 0
+push argument 1
+push this 0
+sub
+pop this 2
+push argument 2
+push this 1
+sub
+pop this 3
+push this 2
+call Math.abs 1
+pop local 0
+push this 3
+call Math.abs 1
+pop local 1
+push local 0
+push local 1
+lt
+pop this 7
+push this 7
+not
+if-goto BallIFLABEL0
+push local 0
+pop local 2
+push local 1
+pop local 0
+push local 2
+pop local 1
+push this 1
+push argument 2
+lt
+pop this 8
+push this 0
+push argument 1
+lt
+pop this 9
+goto BallIFLABEL1
+label BallIFLABEL0
+push this 0
+push argument 1
+lt
+pop this 8
+push this 1
+push argument 2
+lt
+pop this 9
+label BallIFLABEL1
+push constant 2
+push local 1
+call Math.multiply 2
+push local 0
+sub
+pop this 4
+push constant 2
+push local 1
+call Math.multiply 2
+pop this 5
+push constant 2
+push local 1
+push local 0
+sub
+call Math.multiply 2
+pop this 6
+push constant 0
+return
+function Ball.move 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Ball.hide 1
+pop temp 0
+push this 4
+push constant 0
+lt
+not
+if-goto BallIFLABEL3
+push this 4
+push this 5
+add
+pop this 4
+goto BallIFLABEL4
+label BallIFLABEL3
+push this 4
+push this 6
+add
+pop this 4
+push this 9
+not
+if-goto BallIFLABEL6
+push this 7
+not
+if-goto BallIFLABEL9
+push this 0
+push constant 4
+add
+pop this 0
+goto BallIFLABEL10
+label BallIFLABEL9
+push this 1
+push constant 4
+add
+pop this 1
+label BallIFLABEL10
+goto BallIFLABEL7
+label BallIFLABEL6
+push this 7
+not
+if-goto BallIFLABEL12
+push this 0
+push constant 4
+sub
+pop this 0
+goto BallIFLABEL13
+label BallIFLABEL12
+push this 1
+push constant 4
+sub
+pop this 1
+label BallIFLABEL13
+label BallIFLABEL7
+label BallIFLABEL4
+push this 8
+not
+if-goto BallIFLABEL15
+push this 7
+not
+if-goto BallIFLABEL18
+push this 1
+push constant 4
+add
+pop this 1
+goto BallIFLABEL19
+label BallIFLABEL18
+push this 0
+push constant 4
+add
+pop this 0
+label BallIFLABEL19
+goto BallIFLABEL16
+label BallIFLABEL15
+push this 7
+not
+if-goto BallIFLABEL21
+push this 1
+push constant 4
+sub
+pop this 1
+goto BallIFLABEL22
+label BallIFLABEL21
+push this 0
+push constant 4
+sub
+pop this 0
+label BallIFLABEL22
+label BallIFLABEL16
+push this 0
+push this 10
+gt
+not
+not
+if-goto BallIFLABEL24
+push constant 1
+pop this 14
+push this 10
+pop this 0
+goto BallIFLABEL25
+label BallIFLABEL24
+label BallIFLABEL25
+push this 0
+push this 11
+lt
+not
+not
+if-goto BallIFLABEL27
+push constant 2
+pop this 14
+push this 11
+pop this 0
+goto BallIFLABEL28
+label BallIFLABEL27
+label BallIFLABEL28
+push this 1
+push this 12
+gt
+not
+not
+if-goto BallIFLABEL30
+push constant 3
+pop this 14
+push this 12
+pop this 1
+goto BallIFLABEL31
+label BallIFLABEL30
+label BallIFLABEL31
+push this 1
+push this 13
+lt
+not
+not
+if-goto BallIFLABEL33
+push constant 4
+pop this 14
+push this 13
+pop this 1
+goto BallIFLABEL34
+label BallIFLABEL33
+label BallIFLABEL34
+push pointer 0
+call Ball.show 1
+pop temp 0
+push this 14
+return
+function Ball.bounce 5
+push argument 0
+pop pointer 0
+push this 2
+push constant 10
+call Math.divide 2
+pop local 2
+push this 3
+push constant 10
+call Math.divide 2
+pop local 3
+push argument 1
+push constant 0
+eq
+not
+if-goto BallIFLABEL36
+push constant 10
+pop local 4
+goto BallIFLABEL37
+label BallIFLABEL36
+push this 2
+push constant 0
+lt
+not
+push argument 1
+push constant 1
+eq
+and
+push this 2
+push constant 0
+lt
+push argument 1
+push constant 1
+neg
+eq
+and
+or
+not
+if-goto BallIFLABEL39
+push constant 20
+pop local 4
+goto BallIFLABEL40
+label BallIFLABEL39
+push constant 5
+pop local 4
+label BallIFLABEL40
+label BallIFLABEL37
+push this 14
+push constant 1
+eq
+not
+if-goto BallIFLABEL42
+push constant 506
+pop local 0
+push local 3
+push constant 50
+neg
+call Math.multiply 2
+push local 2
+call Math.divide 2
+pop local 1
+push this 1
+push local 1
+push local 4
+call Math.multiply 2
+add
+pop local 1
+goto BallIFLABEL43
+label BallIFLABEL42
+push this 14
+push constant 2
+eq
+not
+if-goto BallIFLABEL45
+push constant 0
+pop local 0
+push local 3
+push constant 50
+call Math.multiply 2
+push local 2
+call Math.divide 2
+pop local 1
+push this 1
+push local 1
+push local 4
+call Math.multiply 2
+add
+pop local 1
+goto BallIFLABEL46
+label BallIFLABEL45
+push this 14
+push constant 3
+eq
+not
+if-goto BallIFLABEL48
+push constant 250
+pop local 1
+push local 2
+push constant 25
+neg
+call Math.multiply 2
+push local 3
+call Math.divide 2
+pop local 0
+push this 0
+push local 0
+push local 4
+call Math.multiply 2
+add
+pop local 0
+goto BallIFLABEL49
+label BallIFLABEL48
+push constant 0
+pop local 1
+push local 2
+push constant 25
+call Math.multiply 2
+push local 3
+call Math.divide 2
+pop local 0
+push this 0
+push local 0
+push local 4
+call Math.multiply 2
+add
+pop local 0
+label BallIFLABEL49
+label BallIFLABEL46
+label BallIFLABEL43
+push pointer 0
+push local 0
+push local 1
+call Ball.setDestination 3
+pop temp 0
+push constant 0
+return
